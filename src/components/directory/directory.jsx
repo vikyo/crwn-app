@@ -11,8 +11,10 @@ class Directory extends React.Component {
   render() {
     return (
       <div className="directory-menu">
-        {this.state.shopItems.map(({ title, imageUrl, id, size }) => (
-          <MenuItem key={id} title={title} imageUrl={imageUrl} size={size} />
+        {this.state.shopItems.map(({ id, ...otherSectionProps }) => (
+          // <MenuItem key={id} title={title} imageUrl={imageUrl} size={size} />
+          //L70: as the key and props passed have same name we can use this syntax
+          <MenuItem key={id} {...otherSectionProps} />
         ))}
       </div>
     );

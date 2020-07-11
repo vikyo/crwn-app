@@ -1,8 +1,8 @@
 import React from "react";
 
-import { sections } from "../../mock-data/data";
-import MenuItem from "../menu-item/menu-item";
 import "./directory.scss";
+import { sections } from "../../mock-data/directoryData";
+import MenuItem from "../menu-item/menu-item";
 
 class Directory extends React.Component {
   state = {

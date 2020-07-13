@@ -1,5 +1,10 @@
 // User types
-export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const UserActionTypes = {
+  SET_CURRENT_USER: "SET_CURRENT_USER",
+};
 
 // Cart types
-export const TOGGLE_CART_DROP_DOWN = "TOGGLE_CART_DROP_DOWN";
+export const CartActionTypes = {
+  TOGGLE_CART_DROP_DOWN: "TOGGLE_CART_DROP_DOWN",
+  ADD_ITEM: "ADD_ITEM",
+};

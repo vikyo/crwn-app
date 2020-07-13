@@ -61,8 +61,13 @@ class App extends React.Component {
 }
 
 // mapDispatchToProps is a function, that takes state as parameter and returns an object
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
+// const mapStateToProps = ({ user }) => ({
+//   currentUser: user.currentUser,
+// });
+
+// New syntax using destructuring
+const mapStateToProps = ({ user: { currentUser } }) => ({
+  currentUser,
 });
 
 // mapDispatchToProps is a function, that takes dispatch as parameter and returns an object

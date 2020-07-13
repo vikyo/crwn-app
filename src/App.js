@@ -18,7 +18,6 @@ class App extends React.Component {
     const { setCurrentUserFunction } = this.props;
     this.unSubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
-        console.log("insidr");
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot((snapShot) => {
@@ -29,7 +28,7 @@ class App extends React.Component {
           // console.log(this.state);
         });
       }
-      console.log("outsider");
+
       setCurrentUserFunction(userAuth);
     });
   }

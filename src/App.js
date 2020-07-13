@@ -1,12 +1,12 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import "./App.css";
 import Homepage from "./containers/homepage/homepage";
 import ShopPage from "./containers/shopPage/shopPage";
 import Header from "./components/header/header";
-import signInAndSignUp from "./containers/sign-in-and-sign-up/sign-in-and-sign-up";
+import SignInAndSignUp from "./containers/sign-in-and-sign-up/sign-in-and-sign-up";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/actions";
 
@@ -46,15 +46,28 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={Homepage} />
           <Route exact path="/shop" component={ShopPage} />
-          <Route exact path="/sign-in" component={signInAndSignUp} />
+          {/* Conditional route redirection using render method */}
+          <Route
+            exact
+            path="/sign-in"
+            render={() =>
+              this.props.currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
+            }
+          />
         </Switch>
       </div>
     );
   }
 }
 
+// mapDispatchToProps is a function, that takes state as parameter and returns an object
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
+// mapDispatchToProps is a function, that takes dispatch as parameter and returns an object
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUserFunction: (userObject) => dispatch(setCurrentUser(userObject)),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -28,3 +28,13 @@ export const selectCartItemsCount = createSelector(
     }, 0);
   }
 );
+
+// Function to find the total amount of the items in the cart
+export const selectCartTotal = createSelector(
+  [selectCartItems],
+  (cartItems) => {
+    return cartItems.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue.price * currentValue.quantity;
+    }, 0);
+  }
+);

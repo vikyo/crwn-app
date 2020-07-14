@@ -8,6 +8,12 @@ const selectCart = (state) => {
   return state.cart;
 };
 
+// Function to select the hidden property of the cart state
+export const selectCartHidden = createSelector(
+  [selectCart],
+  (cart) => cart.hidden //using function syntax without return keyword
+);
+
 // Function to select the cart items from the above fetched cart
 export const selectCartItems = createSelector([selectCart], (cart) => {
   return cart.cartItems;

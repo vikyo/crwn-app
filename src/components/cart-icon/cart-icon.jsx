@@ -5,6 +5,7 @@ import { ReactComponent as ShopingIcon } from "../../assets/shopping-bag.svg";
 import "./cart-icon.scss";
 import { toggleCartDropdown } from "../../redux/cart/action";
 import { selectCartItemsCount } from "../../redux/cart/selector";
+import { createStructuredSelector } from "reselect";
 
 const CartIcon = ({ toggleCartDropDownFunction, itemCount }) => {
   return (
@@ -16,12 +17,9 @@ const CartIcon = ({ toggleCartDropDownFunction, itemCount }) => {
 };
 
 // For getting the total quantity of items in cart
-const mapStateToProps = (state) => {
-  // console.log("cart Icon map state to props");
-  return {
-    itemCount: selectCartItemsCount(state),
-  };
-};
+const mapStateToProps = createStructuredSelector({
+  itemCount: selectCartItemsCount,
+});
 
 // dispatch toggle cart dropdown
 const mapDispatchToProps = (dispatch) => ({

@@ -1,12 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { Redirect } from "react-router-dom";
 
 import "./checkout.scss";
 import { selectCartItems, selectCartTotal } from "../../redux/cart/selector";
 import CheckoutItem from "../../components/checkout-item/checkout-item";
 
 const Checkout = ({ cartItems, total }) => {
+  // if there is no cart item or user emptied the cart then redirect to hmepage
+  if (cartItems.length === 0) {
+    return <Redirect to="/" />;
+  }
   return (
     <div className="checkout-page">
       <div className="checkout-header">

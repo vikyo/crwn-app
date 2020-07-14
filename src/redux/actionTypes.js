@@ -7,4 +7,6 @@ export const UserActionTypes = {
 export const CartActionTypes = {
   TOGGLE_CART_DROP_DOWN: "TOGGLE_CART_DROP_DOWN",
   ADD_ITEM: "ADD_ITEM",
+  REMOVE_ITEM: "REMOVE_ITEM",
+  DECREASE_QUANTITY: "DECREASE_QUANTITY",
 };

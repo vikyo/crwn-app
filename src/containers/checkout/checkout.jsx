@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import "./checkout.scss";
 import { selectCartItems, selectCartTotal } from "../../redux/cart/selector";
 import CheckoutItem from "../../components/checkout-item/checkout-item";
+import StripeCheckoutButton from "../../components/stripe-button/stripe-button";
 
 const Checkout = ({ cartItems, total }) => {
   // if there is no cart item or user emptied the cart then redirect to hmepage
@@ -37,6 +38,10 @@ const Checkout = ({ cartItems, total }) => {
       <div className="total">
         <span>TOTAL: ${total}</span>
       </div>
+      <div className="test-warning">
+        check the link https://stripe.com/docs/testing for card details
+      </div>
+      <StripeCheckoutButton price={total} />
     </div>
   );
 };

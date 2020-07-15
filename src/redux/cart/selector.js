@@ -38,7 +38,3 @@ export const selectCartTotal = createSelector(
     }, 0);
   }
 );
-
-// export const decreaseItem  = (array) => {
-//   const
-// }

@@ -36,7 +36,7 @@ const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems,
 });
 
-// We can give it like this but there is anathor way
+// We can give it like this but there is anathor way using dispatch props directly, see in clickHandler
 // const mapDispatchToProps = (dispatch) => ({
 //   toggleCartDropDownFunction: () => {
 //     dispatch(toggleCartDropdown());

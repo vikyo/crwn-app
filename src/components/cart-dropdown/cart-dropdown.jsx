@@ -11,7 +11,7 @@ import { toggleCartDropdown } from "../../redux/cart/action";
 
 const CartDropdown = ({ cartItems, history, dispatch }) => {
   const clickHandler = () => {
-    history.push("./checkout");
+    history.push("/checkout");
     dispatch(toggleCartDropdown());
   };
   return (

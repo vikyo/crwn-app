@@ -21,6 +21,7 @@ export const selectCollectionItems = createSelector(
 
 // // L136 section11
 // returns the hats or sneakers or etc based on the url params in routing and mapped in the  COLLECTION_MAP_ID
+// we need memoize here because we are not creating selector but a normal function with url params
 export const selectCollection = memoize((collectionUrlParams) => {
   return createSelector([selectCollectionItems], (collectionItems) => {
     return collectionItems.find(

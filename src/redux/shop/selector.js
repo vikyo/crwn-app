@@ -1,15 +1,6 @@
 import { createSelector } from "reselect";
 import memoize from "lodash.memoize";
 
-// Mapping routeNames or keys to number ids
-const COLLECTION_MAP_ID = {
-  hats: 1,
-  sneakers: 2,
-  jackets: 3,
-  womens: 4,
-  mens: 5,
-};
-
 // returns shop slice from redux state
 const selectShop = (state) => state.shop;
 
@@ -19,27 +10,27 @@ export const selectCollectionItems = createSelector(
   (shop) => shop.collectionItems
 );
 
-// // L136 section11
-// returns the hats or sneakers or etc based on the url params in routing and mapped in the  COLLECTION_MAP_ID
+// State normalization selector, creating the array of values from the object
+// i.e {hats:{id:1,title:hats},sneakers:{id:2,title:sneakers}} converted to [{id:1,title:hats},,sneakers:{id:2,title:sneakers}]
+export const selectCollectionsForPreview = createSelector(
+  [selectCollectionItems],
+  (collectionItems) =>
+    Object.keys(collectionItems).map((key) => collectionItems[key])
+);
+
+// L136 section11
 // we need memoize here because we are not creating selector but a normal function with url params
 
 // export const selectCollection = memoize((collectionUrlParams) => {
 //   return createSelector([selectCollectionItems], (collectionItems) => {
-//     return collectionItems.find(
-//       (collectionItem) =>
-//         // collectionItem.id === COLLECTION_MAP_ID[collectionUrlParams]
-//         collectionItem.routeName === collectionUrlParams // checking through routeName
-//     );
+//     return collectionItems[collectionUrlParams];
 //   });
 // });
 
 // above function written without return and {}
 export const selectCollection = memoize((collectionUrlParams) =>
-  createSelector([selectCollectionItems], (collectionItems) =>
-    collectionItems.find(
-      (collectionItem) =>
-        collectionItem.id === COLLECTION_MAP_ID[collectionUrlParams] // checking through COLLECTION_MAP_ID
-      // collectionItem.routeName === collectionUrlParams
-    )
+  createSelector(
+    [selectCollectionItems],
+    (collectionItems) => collectionItems[collectionUrlParams] // select the collections items based upon url params
   )
 );

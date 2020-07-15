@@ -9,7 +9,11 @@ import { createStructuredSelector } from "reselect";
 
 const CartIcon = ({ toggleCartDropDownFunction, itemCount }) => {
   return (
-    <div className="cart-icon" onClick={toggleCartDropDownFunction}>
+    <div
+      className="cart-icon"
+      onMouseEnter={toggleCartDropDownFunction}
+      onClick={toggleCartDropDownFunction}
+    >
       <ShopingIcon className="shopping-icon" />
       <span className="item-count">{itemCount}</span>
     </div>

@@ -21,9 +21,17 @@ class ShopPage extends React.Component {
   componentDidMount() {
     const { updateCollectionsFunction } = this.props;
     const collectionRef = firestore.collection("collections");
-    collectionRef.onSnapshot((snapshot) => {
+
+    // Using firebase REST api calls and fetch
+    // fetch(
+    //   "https://firestore.googleapis.com/v1/projects/crwn-db-ad650/databases/(default)/documents/collections"
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => console.log(data));
+
+    collectionRef.get().then((snapshot) => {
       const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
-      // console.log(collectionsMap);
+      console.log(collectionsMap);
       updateCollectionsFunction(collectionsMap);
       this.setState({ loading: false });
     });

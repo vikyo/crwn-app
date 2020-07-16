@@ -3,11 +3,15 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { withRouter } from "react-router-dom";
 
-import "./cart-dropdown.scss";
-import CustomButton from "../custom-button/custom-button";
 import CartItem from "../cart-item/cart-item";
 import { selectCartItems } from "../../redux/cart/selector";
 import { toggleCartDropdown } from "../../redux/cart/action";
+import {
+  CartDropDownContainer,
+  CartItemContainer,
+  ErrorMessageContainer,
+  CartButtonContainer,
+} from "./cart-dropdown-styles";
 
 const CartDropdown = ({ cartItems, history, dispatch }) => {
   const clickHandler = () => {
@@ -15,20 +19,20 @@ const CartDropdown = ({ cartItems, history, dispatch }) => {
     dispatch(toggleCartDropdown());
   };
   return (
-    <div className="cart-dropdown">
-      <div className="cart-items">
+    <CartDropDownContainer>
+      <CartItemContainer>
         {cartItems.length ? (
           cartItems.map((cartItem) => (
             <CartItem key={cartItem.id} item={cartItem} />
           ))
         ) : (
-          <div className="empty-message">Cart is empty</div>
+          <ErrorMessageContainer>Cart is empty</ErrorMessageContainer>
         )}
-      </div>
-      <CustomButton type="button" onClick={clickHandler}>
+      </CartItemContainer>
+      <CartButtonContainer type="button" onClick={clickHandler}>
         GO TO CHECKOUT
-      </CustomButton>
-    </div>
+      </CartButtonContainer>
+    </CartDropDownContainer>
   );
 };
 
@@ -37,6 +41,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 // We can give it like this but there is anathor way using dispatch props directly, see in clickHandler
+// when connect() is used , it passes dispatch props in the container
 // const mapDispatchToProps = (dispatch) => ({
 //   toggleCartDropDownFunction: () => {
 //     dispatch(toggleCartDropdown());

@@ -10,6 +10,12 @@ export const selectCollectionItems = createSelector(
   (shop) => shop.collectionItems
 );
 
+// Function to select the isFetching property of the shop state
+export const selectIsCollectionsFetching = createSelector(
+  [selectShop],
+  (shop) => shop.isFetching //using function syntax without return keyword
+);
+
 /* State normalization selector, creating the array of values from the object
 i.e {hats:{id:1,title:hats},sneakers:{id:2,title:sneakers}} converted to [{id:1,title:hats},{id:2,title:sneakers}] */
 export const selectCollectionsForPreview = createSelector(
@@ -36,4 +42,10 @@ export const selectCollection = memoize((collectionUrlParams) =>
     (collectionItems) =>
       collectionItems ? collectionItems[collectionUrlParams] : null // select the collections items based upon url params
   )
+);
+
+// L177- fixing the collection page bug
+export const selectIsCollectionsLoaded = createSelector(
+  [selectShop],
+  (shop) => !!shop.collectionItems
 );

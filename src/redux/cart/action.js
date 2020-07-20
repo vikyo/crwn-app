@@ -30,3 +30,18 @@ export const decreaseItem = (item) => {
     payload: item,
   };
 };
+
+// Remove an item from cart
+export const clearItemFromCart = (item) => {
+  return {
+    type: CartActionTypes.CLEAR_ITEM_FROM_CART,
+    payload: item,
+  };
+};
+
+// Empty the entire cart
+export const clearCart = () => {
+  return {
+    type: CartActionTypes.CLEAR_CART,
+  };
+};

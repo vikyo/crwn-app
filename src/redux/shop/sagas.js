@@ -1,4 +1,4 @@
-import { takeLatest, call, put } from "redux-saga/effects";
+import { takeLatest, call, put, all } from "redux-saga/effects";
 
 import { ShopActionTypes } from "../actionTypes";
 import {
@@ -6,6 +6,7 @@ import {
   convertCollectionsSnapshotToMap,
 } from "../../firebase/firebase.utils";
 import { fetchCollectionsSuccess, fetchCollectionsFailure } from "./action";
+import { findAllByAltText } from "@testing-library/react";
 
 export function* fetchCollectionsAsync() {
   yield console.log("I am fired");
@@ -17,8 +18,7 @@ export function* fetchCollectionsAsync() {
       convertCollectionsSnapshotToMap,
       snapShotObject
     );
-    // yield console.log(collectionsMap);
-    // yield console.log(snapShotObject);
+
     yield put(fetchCollectionsSuccess(collectionsMap));
   } catch (error) {
     yield put(fetchCollectionsFailure());
@@ -30,4 +30,8 @@ export function* fetchCollectionsStart() {
     ShopActionTypes.FETCH_COLLECTIONS_START,
     fetchCollectionsAsync
   );
+}
+
+export function* shopSagas() {
+  yield all([call(fetchCollectionsStart)]);
 }

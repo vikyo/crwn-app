@@ -8,7 +8,6 @@ import Homepage from "./containers/homepage/homepage";
 import ShopPage from "./containers/shopPage/shopPage";
 import Header from "./components/header/header";
 import SignInAndSignUp from "./containers/sign-in-and-sign-up/sign-in-and-sign-up";
-import { setCurrentUser } from "./redux/user/actions";
 import { selectCurrentUser } from "./redux/user/selector";
 import Checkout from "./containers/checkout/checkout";
 import { selectCollectionsForPreview } from "./redux/shop/selector";
@@ -22,7 +21,6 @@ class App extends React.Component {
           <Route exact path="/" component={Homepage} />
           <Route path="/shop" component={ShopPage} />
 
-          {/* Conditional route redirection using render method */}
           <Route
             exact
             path="/sign-in"
@@ -37,20 +35,10 @@ class App extends React.Component {
   }
 }
 
-// mapDispatchToProps is a function, that takes state as parameter and returns an object
-/* const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
-}); */
-
 // New syntax using destructuring
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   collectionsArray: selectCollectionsForPreview,
 });
 
-// mapDispatchToProps is a function, that takes dispatch as parameter and returns an object
-const mapDispatchToProps = (dispatch) => ({
-  setCurrentUserFunction: (userObject) => dispatch(setCurrentUser(userObject)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

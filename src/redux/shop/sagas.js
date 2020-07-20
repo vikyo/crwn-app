@@ -6,7 +6,6 @@ import {
   convertCollectionsSnapshotToMap,
 } from "../../firebase/firebase.utils";
 import { fetchCollectionsSuccess, fetchCollectionsFailure } from "./action";
-import { findAllByAltText } from "@testing-library/react";
 
 export function* fetchCollectionsAsync() {
   yield console.log("I am fired");

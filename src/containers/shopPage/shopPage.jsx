@@ -4,13 +4,13 @@ import { connect } from "react-redux";
 
 import CollectionPageWithSpinnerContainer from "../collection/HOC-container";
 import CollectionsOverviewWithSpinnerContainer from "../../components/collections-overview/HOC-container";
-import { fetchCollectionsStartAsync } from "../../redux/shop/action";
+import { fetchCollectionsStart } from "../../redux/shop/action";
 import WithSpinner from "../../components/withSpinner/withSpinner";
 
 class ShopPage extends React.Component {
   // Fetching the shop collection data
   componentDidMount() {
-    this.props.fecthCollections();
+    this.props.fetchCollectionsStart();
   }
 
   render() {
@@ -35,7 +35,7 @@ class ShopPage extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fecthCollections: () => dispatch(fetchCollectionsStartAsync()),
+  fetchCollectionsStart: () => dispatch(fetchCollectionsStart()),
 });
 
 export default WithSpinner(connect(null, mapDispatchToProps)(ShopPage));

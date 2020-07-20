@@ -10,9 +10,12 @@ import Header from "./components/header/header";
 import SignInAndSignUp from "./containers/sign-in-and-sign-up/sign-in-and-sign-up";
 import { selectCurrentUser } from "./redux/user/selector";
 import Checkout from "./containers/checkout/checkout";
-import { selectCollectionsForPreview } from "./redux/shop/selector";
+import { checkUserSession } from "./redux/user/actions";
 
 class App extends React.Component {
+  componentDidMount() {
+    this.props.checkUserSession();
+  }
   render() {
     return (
       <div className="App">
@@ -38,7 +41,10 @@ class App extends React.Component {
 // New syntax using destructuring
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  collectionsArray: selectCollectionsForPreview,
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  checkUserSession: () => dispatch(checkUserSession()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

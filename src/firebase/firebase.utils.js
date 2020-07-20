@@ -105,9 +105,18 @@ export const convertCollectionsSnapshotToMap = (collections) => {
     },
     {}
   );
-  // console.log(transformedCollectionArray);
-  // console.log(mappedArrayToObject);
+
   return mappedArrayToObject;
+};
+
+// Check user session for persistence
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
 };
 
 export const auth = firebase.auth();

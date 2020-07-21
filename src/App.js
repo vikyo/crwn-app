@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -12,31 +12,30 @@ import { selectCurrentUser } from "./redux/user/selector";
 import Checkout from "./containers/checkout/checkout";
 import { checkUserSession } from "./redux/user/actions";
 
-class App extends React.Component {
-  componentDidMount() {
-    this.props.checkUserSession();
-  }
-  render() {
-    return (
-      <div className="App">
-        <Header />
-        <Switch>
-          <Route exact path="/" component={Homepage} />
-          <Route path="/shop" component={ShopPage} />
+const App = ({ currentUser, checkUserSession }) => {
+  useEffect(() => {
+    checkUserSession();
+  }, [checkUserSession]);
 
-          <Route
-            exact
-            path="/sign-in"
-            render={() =>
-              this.props.currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
-            }
-          />
-          <Route exact path="/checkout" component={Checkout} />
-        </Switch>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="App">
+      <Header />
+      <Switch>
+        <Route exact path="/" component={Homepage} />
+        <Route path="/shop" component={ShopPage} />
+
+        <Route
+          exact
+          path="/sign-in"
+          render={() =>
+            currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
+          }
+        />
+        <Route exact path="/checkout" component={Checkout} />
+      </Switch>
+    </div>
+  );
+};
 
 // New syntax using destructuring
 const mapStateToProps = createStructuredSelector({

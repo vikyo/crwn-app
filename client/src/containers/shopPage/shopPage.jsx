@@ -1,11 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 
-import CollectionPageWithSpinnerContainer from "../collection/HOC-container";
-import CollectionsOverviewWithSpinnerContainer from "../../components/collections-overview/HOC-container";
 import { fetchCollectionsStart } from "../../redux/shop/action";
 import WithSpinner from "../../components/withSpinner/withSpinner";
+import Spinner from "../../components/spinner/spinner";
+
+const CollectionPageWithSpinnerContainer = lazy(() =>
+  import("../collection/HOC-container")
+);
+const CollectionsOverviewWithSpinnerContainer = lazy(() =>
+  import("../../components/collections-overview/HOC-container")
+);
 
 const ShopPage = ({ fetchCollectionsStart, match }) => {
   useEffect(() => {
@@ -13,19 +19,21 @@ const ShopPage = ({ fetchCollectionsStart, match }) => {
   }, [fetchCollectionsStart]); // Can pass the empty [] also
 
   return (
-    <div className="shop-page">
-      <Route
-        exact
-        path={`${match.path}`}
-        component={CollectionsOverviewWithSpinnerContainer}
-      />
+    <>
+      <Suspense fallback={<Spinner />}>
+        <Route
+          exact
+          path={`${match.path}`}
+          component={CollectionsOverviewWithSpinnerContainer}
+        />
 
-      <Route
-        exact
-        path={`${match.path}/:collectionCategory`}
-        component={CollectionPageWithSpinnerContainer}
-      />
-    </div>
+        <Route
+          exact
+          path={`${match.path}/:collectionCategory`}
+          component={CollectionPageWithSpinnerContainer}
+        />
+      </Suspense>
+    </>
   );
 };
 
